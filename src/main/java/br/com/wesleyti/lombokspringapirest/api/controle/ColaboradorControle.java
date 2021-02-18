@@ -1,4 +1,4 @@
-package br.com.wesleyti.lombokspringapirest.controller;
+package br.com.wesleyti.lombokspringapirest.api.controle;
 import br.com.wesleyti.lombokspringapirest.dominio.Colaborador;
 import br.com.wesleyti.lombokspringapirest.service.ColaboradorServico;
 import org.springframework.beans.factory.annotation.Autowired;
