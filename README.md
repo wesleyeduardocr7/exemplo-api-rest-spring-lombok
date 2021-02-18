@@ -1,5 +1,5 @@
 <h1 align="center">
-  📦 Desafio Linha de Montagem
+  📦 Exemplo de utilização do projeto Lombok em aplicações API REST utilizando Spring
 </h1>
 
 ## 💻 Tecnologias
