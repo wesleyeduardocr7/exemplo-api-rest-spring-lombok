@@ -1,7 +1,6 @@
 package br.com.wesleyti.lombokspringapirest.controller;
 import br.com.wesleyti.lombokspringapirest.dominio.Empresa;
-import br.com.wesleyti.lombokspringapirest.repositorio.EmpresaRepositorio;
-import br.com.wesleyti.lombokspringapirest.service.CadastroEmpresaServico;
+import br.com.wesleyti.lombokspringapirest.service.EmpresaServico;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,20 +13,17 @@ import java.util.Optional;
 public class EmpresaController {
 
 	@Autowired
-	private EmpresaRepositorio empresaRepositorio;
-
-	@Autowired
-	private CadastroEmpresaServico cadastroEmpresaServico;
+	private EmpresaServico empresaServico;
 
 	@GetMapping
 	public List<Empresa> listar() {
-		return empresaRepositorio.findAll();
+		return empresaServico.listar();
 	}
 	
 	@GetMapping("/{empresaId}")
 	public ResponseEntity<Empresa> buscar(@PathVariable Long empresaId) {
 
-		Optional<Empresa> empresa = empresaRepositorio.findById(empresaId);
+		Optional<Empresa> empresa = empresaServico.buscarPor(empresaId);
 		
 		if (empresa.isPresent()) {
 			return ResponseEntity.ok(empresa.get());
@@ -39,31 +35,31 @@ public class EmpresaController {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Empresa adicionar(@RequestBody Empresa empresa) {
-		return cadastroEmpresaServico.salvar(empresa);
+		return empresaServico.salvar(empresa);
 	}
 	
-	@PutMapping("/{lojaId}")
+	@PutMapping("/{empresaId}")
 	public ResponseEntity<Empresa> atualizar(@PathVariable Long empresaId,
                                           @RequestBody Empresa empresa) {
 		
-		if (!empresaRepositorio.existsById(empresaId)) {
+		if (!empresaServico.idEmpresaJaExiste(empresaId)) {
 			return ResponseEntity.notFound().build();
 		}
 		
 		empresa.setId(empresaId);
-		empresa = cadastroEmpresaServico.salvar(empresa);
+		empresa = empresaServico.salvar(empresa);
 		
 		return ResponseEntity.ok(empresa);
 	}
 	
-	@DeleteMapping("/{lojaId}")
+	@DeleteMapping("/{empresaId}")
 	public ResponseEntity<Void> remover(@PathVariable Long empresaId) {
 
-		if (!empresaRepositorio.existsById(empresaId)) {
+		if (!empresaServico.idEmpresaJaExiste(empresaId)) {
 			return ResponseEntity.notFound().build();
 		}
 		
-		cadastroEmpresaServico.excluir(empresaId);
+		empresaServico.excluir(empresaId);
 		
 		return ResponseEntity.noContent().build();
 	}
