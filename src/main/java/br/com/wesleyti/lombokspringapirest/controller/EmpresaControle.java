@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/empresa")
-public class EmpresaController {
+public class EmpresaControle {
 
 	@Autowired
 	private EmpresaServico empresaServico;

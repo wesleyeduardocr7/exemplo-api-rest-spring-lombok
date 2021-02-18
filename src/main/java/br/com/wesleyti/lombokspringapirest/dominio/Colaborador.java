@@ -13,6 +13,7 @@ public class Colaborador implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="id_colaborador")
 	private Long id;
 
 	@Column(name = "nome", length=100, nullable = false)
@@ -23,9 +24,6 @@ public class Colaborador implements Serializable{
 
 	@Column(name = "salario", scale = 6)
 	private BigDecimal salario;
-
-	@Column(name = "tipo_colaborador")
-	private TipoColaborador tipoColaborador;
 
 	@ManyToOne
 	@JoinColumn(name = "id_empresa")
